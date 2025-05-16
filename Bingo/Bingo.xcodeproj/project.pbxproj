@@ -14,7 +14,8 @@
 		FB38F0E52DCE5F0E0099E6C4 /* BingoNumero.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB38F0E42DCE5F0E0099E6C4 /* BingoNumero.swift */; };
 		FB38F0E72DCE5F4F0099E6C4 /* BingoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB38F0E62DCE5F4F0099E6C4 /* BingoAPI.swift */; };
 		FB38F0EB2DCE63A40099E6C4 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB38F0EA2DCE63A40099E6C4 /* GameView.swift */; };
-		FB38F0F12DCE669E0099E6C4 /* CartaBingo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB38F0F02DCE669E0099E6C4 /* CartaBingo.swift */; };
+		FBE554782DD798CA000E44C5 /* GanastePantalla.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE554772DD798CA000E44C5 /* GanastePantalla.swift */; };
+		FBE5547A2DD79CC7000E44C5 /* InicioPantalla.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE554792DD79CC7000E44C5 /* InicioPantalla.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +27,8 @@
 		FB38F0E42DCE5F0E0099E6C4 /* BingoNumero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoNumero.swift; sourceTree = "<group>"; };
 		FB38F0E62DCE5F4F0099E6C4 /* BingoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoAPI.swift; sourceTree = "<group>"; };
 		FB38F0EA2DCE63A40099E6C4 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
-		FB38F0F02DCE669E0099E6C4 /* CartaBingo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartaBingo.swift; sourceTree = "<group>"; };
+		FBE554772DD798CA000E44C5 /* GanastePantalla.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanastePantalla.swift; sourceTree = "<group>"; };
+		FBE554792DD79CC7000E44C5 /* InicioPantalla.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InicioPantalla.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,13 +61,14 @@
 		FB38F0D42DCE5ECE0099E6C4 /* Bingo */ = {
 			isa = PBXGroup;
 			children = (
+				FBE554792DD79CC7000E44C5 /* InicioPantalla.swift */,
+				FBE554772DD798CA000E44C5 /* GanastePantalla.swift */,
 				FB38F0EA2DCE63A40099E6C4 /* GameView.swift */,
 				FB38F0E32DCE5EEE0099E6C4 /* API */,
 				FB38F0D52DCE5ECE0099E6C4 /* BingoApp.swift */,
 				FB38F0D72DCE5ECE0099E6C4 /* ContentView.swift */,
 				FB38F0D92DCE5ECE0099E6C4 /* Assets.xcassets */,
 				FB38F0DB2DCE5ECE0099E6C4 /* Preview Content */,
-				FB38F0F02DCE669E0099E6C4 /* CartaBingo.swift */,
 			);
 			path = Bingo;
 			sourceTree = "<group>";
@@ -158,9 +161,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB38F0D82DCE5ECE0099E6C4 /* ContentView.swift in Sources */,
-				FB38F0F12DCE669E0099E6C4 /* CartaBingo.swift in Sources */,
 				FB38F0E52DCE5F0E0099E6C4 /* BingoNumero.swift in Sources */,
+				FBE554782DD798CA000E44C5 /* GanastePantalla.swift in Sources */,
 				FB38F0E72DCE5F4F0099E6C4 /* BingoAPI.swift in Sources */,
+				FBE5547A2DD79CC7000E44C5 /* InicioPantalla.swift in Sources */,
 				FB38F0D62DCE5ECE0099E6C4 /* BingoApp.swift in Sources */,
 				FB38F0EB2DCE63A40099E6C4 /* GameView.swift in Sources */,
 			);

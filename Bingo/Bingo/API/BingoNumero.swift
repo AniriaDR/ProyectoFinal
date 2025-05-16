@@ -7,7 +7,6 @@
 
 import Foundation
 
-// Estructura para la respuesta de la API
 struct BingoNumeroRespuesta: Decodable {
     let letter: String
     let number: Int
@@ -29,7 +28,6 @@ func generateRandomNumbers(range: ClosedRange<Int>) -> [Int] {
     return Array(numbers).sorted()
 }
 
-// Función para generar la carta de bingo
 func generateBingoCard() -> [[BingoCarta]] {
     var card: [[BingoCarta]] = []
 
@@ -44,9 +42,8 @@ func generateBingoCard() -> [[BingoCarta]] {
         rowCells.append(BingoCarta(numeroCelda: bNumbers[row]))
         rowCells.append(BingoCarta(numeroCelda: iNumbers[row]))
         
-        // Asegúrate de que no haya problemas con el espacio libre
         if row == 2 {
-            rowCells.append(BingoCarta(numeroCelda: nil)) // Espacio libre
+            rowCells.append(BingoCarta(numeroCelda: nil, isMarked: true)) // Espacio libre
         } else {
             rowCells.append(BingoCarta(numeroCelda: nNumbers[row]))
         }

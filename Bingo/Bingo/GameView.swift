@@ -8,103 +8,117 @@
 import SwiftUI
 
 struct GameView: View {
-    @State private var currentLetter: String = ""
-    @State private var currentNumber: Int?
-    @State private var drawnNumbers: [Int] = []
-    @State private var isLoading = false
+    @State private var numActual: Int? = nil
+    @State private var selecNum: [Int] = []
+    @State private var Cagando = false
     @State private var bingoCard: [[BingoCarta]] = []
-    
+    @State private var ganasteMenso: Bool = false
+    @State private var GanastePant = false
     let api = BingoAPI()
 
     var body: some View {
-        VStack(spacing: 20) {
-            Text("BINGO")
-                .font(.largeTitle)
-                .fontWeight(.bold)
+        ZStack {
+            LinearGradient(colors: [Color.pink.opacity(0.2), Color.white], startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
 
-            if let number = currentNumber {
-                Text("Número actual: \(number)")
-                    .font(.title)
-                    .foregroundColor(.blue)
-            } else {
-                Text("Presiona el botón para comenzar")
-                    .foregroundColor(.gray)
-            }
+            VStack(spacing: 20) {
+                Text("BINGO ROSITA ")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.pink)
 
-            Button(action: {fetchNewNumber() }) {
-                Text(isLoading ? "Cargando..." : "Sacar Número")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .disabled(isLoading)
+                if let number = numActual {
+                    Text("Número actual: \(number)")
+                        .font(.title)
+                        .foregroundColor(.pink)
+                } else {
+                    Text("Presiona el botón para comenzar")
+                        .foregroundColor(.gray)
+                }
 
-            Divider()
+                Button(action: { fetchNewNumber() }) {
+                    Text(Cagando ? "Cargando..." : "Sacar Número")
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.pink)
+                        .foregroundColor(.white)
+                        .font(.headline)
+                        .cornerRadius(12)
+                        .shadow(radius: 5)
+                }
+                .disabled(Cagando)
+                .padding(.horizontal, 40)
 
-            Text("Tu Carta")
-                .font(.headline)
+                Divider()
 
-            VStack(spacing: 5) {
-                ForEach(0..<5, id: \.self) { row in
-                    HStack(spacing: 5) {
-                        ForEach(0..<5, id: \.self) { col in
-                            if row < bingoCard.count && col < bingoCard[row].count {
-                                let cell = bingoCard[row][col]
-                                
-                                Button(action: {
-                                    if let num = cell.numeroCelda, drawnNumbers.contains(num) {
-                                        bingoCard[row][col].isMarked.toggle()
-                                    }
-                                }) {
-                                    ZStack {
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .fill(cell.isMarked ? Color.blue : Color.gray.opacity(0.3))
-                                            .frame(width: 50, height: 50)
+                Text("Tu Carta")
+                    .font(.headline)
+                    .foregroundColor(.pink)
 
-                                        if let number = cell.numeroCelda {
-                                            Text("\(number)")
-                                                .foregroundColor(.black)
-                                                .bold()
-                                        } else {
-                                            Text("FREE")
-                                                .foregroundColor(.black)
-                                                .font(.caption)
-                                                .bold()
+                VStack(spacing: 5) {
+                    ForEach(0..<5, id: \.self) { row in
+                        HStack(spacing: 5) {
+                            ForEach(0..<5, id: \.self) { col in
+                                if row < bingoCard.count && col < bingoCard[row].count {
+                                    let cell = bingoCard[row][col]
+                                    Button(action: {
+                                        if let num = cell.numeroCelda, selecNum.contains(num) {
+                                            bingoCard[row][col].isMarked.toggle()
+                                        }
+                                    }) {
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .fill(cell.isMarked ? Color.pink.opacity(0.8) : Color.white)
+                                                .frame(width: 55, height: 55)
+                                                .shadow(color: .pink.opacity(0.2), radius: 3)
+
+                                            if let number = cell.numeroCelda {
+                                                Text("\(number)")
+                                                    .foregroundColor(.black)
+                                                    .bold()
+                                            } else {
+                                                Text("FREE")
+                                                    .foregroundColor(.gray)
+                                                    .bold()
+                                                    .font(.caption)
+                                            }
                                         }
                                     }
                                 }
-                            } else {
-                                Text("Error")
                             }
                         }
                     }
                 }
+                .padding(.horizontal)
 
-            }
+                Divider()
 
-            Divider()
+                Text("Números sorteados:")
+                    .font(.headline)
+                    .foregroundColor(.pink)
 
-            Text("Números sorteados:")
-                .font(.headline)
-
-            ScrollView(.horizontal) {
-                HStack {
-                    ForEach(drawnNumbers, id: \.self) { number in
-                        Text("\(number)")
-                            .padding(8)
-                            .background(Color.orange)
-                            .foregroundColor(.white)
-                            .cornerRadius(6)
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(selecNum, id: \.self) { number in
+                            Text("\(number)")
+                                .padding(8)
+                                .background(Color.pink.opacity(0.8))
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
                     }
+                    .padding(.horizontal)
                 }
-            }
 
-            Spacer()
+                Spacer()
+            }
+            .padding()
         }
-        .padding()
         .onAppear {
             bingoCard = generateBingoCard()
+        }
+        .fullScreenCover(isPresented: $GanastePant) {
+            GanastePantalla()
         }
     }
 
@@ -114,30 +128,87 @@ struct GameView: View {
             return
         }
 
-        isLoading = true
+        Cagando = true
         api.fetchBingoNumber { num in
             DispatchQueue.main.async {
-                self.isLoading = false
+                self.Cagando = false
 
                 guard let num = num else {
-                    print("Número recibido es nil. Reintentando (\(retries - 1) restantes)...")
-                    fetchNewNumber(retries: retries - 1)
+                    print("Número recibido es nil.")
                     return
                 }
 
-                if self.drawnNumbers.contains(num) {
-                    print("Número repetido: \(num). Reintentando (\(retries - 1) restantes)...")
-                    fetchNewNumber(retries: retries - 1)
+                if self.selecNum.contains(num) {
+                    print("Número repetido: \(num).")
                 } else {
-                    self.currentNumber = num
-                    self.drawnNumbers.append(num)
-                    print("Número nuevo sorteado: \(num)")
+                    self.numActual = num
+                    self.selecNum.append(num)
+                }
+
+                for i in 0..<5 {
+                    for j in 0..<5 {
+                        if bingoCard[i][j].numeroCelda == num {
+                            bingoCard[i][j].isMarked = true
+                        }
+                    }
+                }
+
+                if Ganaste() {
+                    ganasteMenso = true
+                    GanastePant = true
+                    print("¡Ganaste mensa!")
                 }
             }
         }
     }
 
+    func Ganaste() -> Bool {
+        for row in bingoCard {
+            if row.filter({ $0.isMarked || $0.numeroCelda == nil }).count == 5 {
+                return true
+            }
+        }
+        for col in 0..<5 {
+            var columnMarked = 0
+            for row in 0..<5 {
+                let cell = bingoCard[row][col]
+                if cell.isMarked || cell.numeroCelda == nil {
+                    columnMarked += 1
+                }
+            }
+            if columnMarked == 5 {
+                return true
+            }
+        }
+        var diagonal1 = 0
+        for i in 0..<5 {
+            let cell = bingoCard[i][i]
+            if cell.isMarked || cell.numeroCelda == nil {
+                diagonal1 += 1
+            }
+        }
+        if diagonal1 == 5 {
+            return true
+        }
+        var diagonal2 = 0
+        for i in 0..<5 {
+            let cell = bingoCard[i][4 - i]
+            if cell.isMarked || cell.numeroCelda == nil {
+                diagonal2 += 1
+            }
+        }
+        if diagonal2 == 5 {
+            return true
+        }
+        return false
+    }
 }
+
+#Preview {
+    GameView()
+}
+
+
 
 #Preview {
     GameView()
