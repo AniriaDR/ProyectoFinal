@@ -14,6 +14,7 @@
 		FB38F0E52DCE5F0E0099E6C4 /* BingoNumero.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB38F0E42DCE5F0E0099E6C4 /* BingoNumero.swift */; };
 		FB38F0E72DCE5F4F0099E6C4 /* BingoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB38F0E62DCE5F4F0099E6C4 /* BingoAPI.swift */; };
 		FB38F0EB2DCE63A40099E6C4 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB38F0EA2DCE63A40099E6C4 /* GameView.swift */; };
+		FB3C4DC82DDB80C4002DE5E7 /* PausaPantalla.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3C4DC72DDB80C4002DE5E7 /* PausaPantalla.swift */; };
 		FBE554782DD798CA000E44C5 /* GanastePantalla.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE554772DD798CA000E44C5 /* GanastePantalla.swift */; };
 		FBE5547A2DD79CC7000E44C5 /* InicioPantalla.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE554792DD79CC7000E44C5 /* InicioPantalla.swift */; };
 /* End PBXBuildFile section */
@@ -27,6 +28,7 @@
 		FB38F0E42DCE5F0E0099E6C4 /* BingoNumero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoNumero.swift; sourceTree = "<group>"; };
 		FB38F0E62DCE5F4F0099E6C4 /* BingoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoAPI.swift; sourceTree = "<group>"; };
 		FB38F0EA2DCE63A40099E6C4 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		FB3C4DC72DDB80C4002DE5E7 /* PausaPantalla.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PausaPantalla.swift; sourceTree = "<group>"; };
 		FBE554772DD798CA000E44C5 /* GanastePantalla.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanastePantalla.swift; sourceTree = "<group>"; };
 		FBE554792DD79CC7000E44C5 /* InicioPantalla.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InicioPantalla.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -62,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				FBE554792DD79CC7000E44C5 /* InicioPantalla.swift */,
+				FB3C4DC72DDB80C4002DE5E7 /* PausaPantalla.swift */,
 				FBE554772DD798CA000E44C5 /* GanastePantalla.swift */,
 				FB38F0EA2DCE63A40099E6C4 /* GameView.swift */,
 				FB38F0E32DCE5EEE0099E6C4 /* API */,
@@ -165,6 +168,7 @@
 				FBE554782DD798CA000E44C5 /* GanastePantalla.swift in Sources */,
 				FB38F0E72DCE5F4F0099E6C4 /* BingoAPI.swift in Sources */,
 				FBE5547A2DD79CC7000E44C5 /* InicioPantalla.swift in Sources */,
+				FB3C4DC82DDB80C4002DE5E7 /* PausaPantalla.swift in Sources */,
 				FB38F0D62DCE5ECE0099E6C4 /* BingoApp.swift in Sources */,
 				FB38F0EB2DCE63A40099E6C4 /* GameView.swift in Sources */,
 			);

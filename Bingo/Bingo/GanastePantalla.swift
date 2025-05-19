@@ -8,37 +8,36 @@
 import SwiftUI
 
 struct GanastePantalla: View {
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
-        VStack(spacing: 30) {
-            Text("¡GANASTE!")
+        VStack(spacing: 20) {
+            Text("¡Ganaste! 🎉")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .foregroundColor(.pink)
 
-            Image(systemName: "crown.fill")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100, height: 100)
-                .foregroundColor(.yellow)
+            Text("¡Felicidades, hiciste bingo!")
+                .font(.title2)
+                .foregroundColor(.purple)
 
-            NavigationLink(destination: InicioPantalla()) {
-                Text("Volver al inicio")
-                    .font(.title3)
+            Button(action: {
+                dismiss() // Esto te regresa a la pantalla anterior dentro del NavigationStack
+            }) {
+                Text("Volver al Inicio")
                     .padding()
-                    .frame(width: 200)
+                    .frame(maxWidth: .infinity)
                     .background(Color.pink)
                     .foregroundColor(.white)
-                    .cornerRadius(15)
-                    .shadow(radius: 5)
+                    .cornerRadius(10)
+                    .padding(.horizontal)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(LinearGradient(gradient: Gradient(colors: [.white, .pink.opacity(0.2)]), startPoint: .top, endPoint: .bottom))
+        .padding()
     }
 }
-
-
 
 #Preview {
     GanastePantalla()
 }
+

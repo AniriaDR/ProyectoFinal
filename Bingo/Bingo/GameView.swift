@@ -14,6 +14,8 @@ struct GameView: View {
     @State private var bingoCard: [[BingoCarta]] = []
     @State private var ganasteMenso: Bool = false
     @State private var GanastePant = false
+    @State private var mostrarPausa = false
+
     let api = BingoAPI()
 
     var body: some View {
@@ -48,6 +50,19 @@ struct GameView: View {
                 }
                 .disabled(Cagando)
                 .padding(.horizontal, 40)
+                
+                Button(action: {
+                    mostrarPausa = true
+                }) {
+                    Image(systemName: "pause.circle.fill")
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                        .foregroundColor(.pink)
+                }
+                .sheet(isPresented: $mostrarPausa) {
+                    PausaPantalla()
+                }
+
 
                 Divider()
 
@@ -121,6 +136,7 @@ struct GameView: View {
             GanastePantalla()
         }
     }
+    
 
     func fetchNewNumber(retries: Int = 5) {
         guard retries > 0 else {
@@ -203,11 +219,6 @@ struct GameView: View {
         return false
     }
 }
-
-#Preview {
-    GameView()
-}
-
 
 
 #Preview {
