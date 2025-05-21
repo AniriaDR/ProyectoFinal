@@ -8,39 +8,76 @@
 import SwiftUI
 
 struct InicioPantalla: View {
+    @Binding var pantallaActual: PantallaActual
+    
     var body: some View {
-        NavigationView {
-            VStack(spacing: 30) {
-                Text("BINGO")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.pink)
-
-                Image(systemName: "sparkles")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 100, height: 100)
-                    .foregroundColor(.pink)
-
-                NavigationLink(destination: GameView()) {
-                    Text("¡JUGAR!")
-                        .font(.title2)
-                        .padding()
-                        .frame(width: 200)
-                        .background(Color.pink)
-                        .foregroundColor(.white)
-                        .cornerRadius(15)
-                        .shadow(radius: 5)
+        VStack(spacing: 30) {
+            Text("BINGO")
+                .font(.system(size: 60, weight: .black, design: .rounded))
+                .foregroundStyle(
+                    LinearGradient(
+                        colors: [.pink, .purple],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+            
+            Image(systemName: "dice.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 100, height: 100)
+                .foregroundStyle(
+                    LinearGradient(
+                        colors: [.pink, .purple],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+            
+            Button(action: {
+                print("DEBUG - Botón JUGAR presionado")
+                withAnimation {
+                    pantallaActual = .juego
                 }
+            }) {
+                Text("¡JUGAR!")
+                    .font(.title2.bold())
+                    .padding()
+                    .frame(width: 200)
+                    .background(
+                        LinearGradient(
+                            colors: [.pink, .purple],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .foregroundColor(.white)
+                    .clipShape(Capsule())
+                    .shadow(color: .pink.opacity(0.4), radius: 10, x: 0, y: 5)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(LinearGradient(gradient: Gradient(colors: [.white, .pink.opacity(0.3)]), startPoint: .top, endPoint: .bottom))
+            .buttonStyle(ScaleButtonStyle())
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [.white, .pink.opacity(0.1)]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+        )
     }
 }
 
-
+struct ScaleButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
+    }
+}
 
 #Preview {
-    InicioPantalla()
+    InicioPantalla(pantallaActual: .constant(.inicio))
 }
+

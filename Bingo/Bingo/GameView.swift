@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GameView: View {
+    @Binding var pantallaActual: PantallaActual
     @State private var numActual: Int? = nil
     @State private var selecNum: [Int] = []
     @State private var Cagando = false
@@ -20,18 +21,24 @@ struct GameView: View {
 
     var body: some View {
         ZStack {
-            LinearGradient(colors: [Color.pink.opacity(0.2), Color.white], startPoint: .top, endPoint: .bottom)
-                .ignoresSafeArea()
+            LinearGradient(
+                gradient: Gradient(colors: [.white, .pink.opacity(0.1)]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
 
             VStack(spacing: 20) {
-                Text("BINGO ROSITA ")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.pink)
+                Text("BINGO")
+                    .font(.system(size: 60, weight: .black, design: .rounded))
+                    .foregroundStyle(
+                        LinearGradient(colors: [.pink, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)
+                    )
+
 
                 if let number = numActual {
                     Text("Número actual: \(number)")
-                        .font(.title)
+                        .font(.title2.bold())
                         .foregroundColor(.pink)
                 } else {
                     Text("Presiona el botón para comenzar")
@@ -40,16 +47,18 @@ struct GameView: View {
 
                 Button(action: { fetchNewNumber() }) {
                     Text(Cagando ? "Cargando..." : "Sacar Número")
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.pink)
-                        .foregroundColor(.white)
-                        .font(.headline)
-                        .cornerRadius(12)
-                        .shadow(radius: 5)
-                }
-                .disabled(Cagando)
-                .padding(.horizontal, 40)
+                        .font(.title2.bold())
+                                    .padding()
+                                    .frame(width: 200)
+                                    .background(
+                                        LinearGradient(colors: [.pink, .purple], startPoint: .leading, endPoint: .trailing)
+                                    )
+                                    .foregroundColor(.white)
+                                    .clipShape(Capsule())
+                                    .shadow(color: .pink.opacity(0.4), radius: 10, x: 0, y: 5)
+                            }
+                            .buttonStyle(ScaleButtonStyle())
+                            .disabled(Cagando)
                 
                 Button(action: {
                     mostrarPausa = true
@@ -57,11 +66,23 @@ struct GameView: View {
                     Image(systemName: "pause.circle.fill")
                         .resizable()
                         .frame(width: 40, height: 40)
-                        .foregroundColor(.pink)
+                        .foregroundStyle(
+                            LinearGradient(colors: [.pink, .purple], startPoint: .top, endPoint: .bottom)
+                        )
                 }
                 .sheet(isPresented: $mostrarPausa) {
-                    PausaPantalla()
+                    PausaPantalla(
+                        volverJuego: {
+                            pantallaActual = .juego
+                            mostrarPausa = false
+                        },
+                        volverInicio: {
+                            pantallaActual = .inicio
+                            mostrarPausa = false
+                        }
+                    )
                 }
+
 
 
                 Divider()
@@ -133,8 +154,13 @@ struct GameView: View {
             bingoCard = generateBingoCard()
         }
         .fullScreenCover(isPresented: $GanastePant) {
-            GanastePantalla()
-        }
+                GanastePantalla(volverInicio: {
+                    pantallaActual = .inicio
+                    GanastePant = false
+                })
+            }
+
+
     }
     
 
@@ -222,6 +248,7 @@ struct GameView: View {
 
 
 #Preview {
-    GameView()
+    GameView(pantallaActual: .constant(.juego))
 }
+
 

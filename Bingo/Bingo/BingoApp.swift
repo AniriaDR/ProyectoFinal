@@ -8,10 +8,11 @@
 import SwiftUI
 
 @main
-struct BingoApp: App {
+struct MiApp: App {
     var body: some Scene {
         WindowGroup {
-            InicioPantalla()
+            ContentView()
         }
     }
 }
+
